@@ -45,7 +45,7 @@ class LessThanOrEq(
     private val operand2: String,
 ) : Operation(operand1, operand2) {
 
-    override fun result(): Boolean = operand1.toLong() < operand2.toLong()
+    override fun result(): Boolean = operand1.toLong() <= operand2.toLong()
 }
 
 class GreaterThan(
@@ -61,5 +61,5 @@ class GreaterThanOrEq(
     private val operand2: String,
 ) : Operation(operand1, operand2) {
 
-    override fun result(): Boolean = operand1.toLong() > operand2.toLong()
+    override fun result(): Boolean = operand1.toLong() >= operand2.toLong()
 }
