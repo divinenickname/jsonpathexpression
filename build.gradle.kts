@@ -68,8 +68,8 @@ signing {
 centralPortal {
     publishingType.set(PublishingType.USER_MANAGED)
 
-    username.set(System.getenv("SONARTYPE_USER"))
-    password.set(System.getenv("SONARTYPE_PASSWORD"))
+    username.set(System.getenv("SONATYPE_USER"))
+    password.set(System.getenv("SONATYPE_PASSWORD"))
 
     pom {
         name.set("Logic Json-Path")
