@@ -73,7 +73,7 @@ centralPortal {
 
     pom {
         name.set("Logic Json-Path")
-        url.set("https://github.com/divinenickname/utgen-kotlin-core")
+        url.set("https://github.com/divinenickname/logic-json-path")
 
         developers {
             developer {
