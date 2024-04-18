@@ -121,4 +121,27 @@ internal class ResultTest {
 
         Assertions.assertTrue(actual)
     }
+
+    @Test
+    fun result_unsupportedOperator_throws() {
+        val json = """
+            {
+              "payload": {
+                "first": {
+                  "value": true
+                },
+                "second": {
+                  "value": true
+                }
+              }
+            }
+        """.trimIndent()
+        val str = "\$.payload.first.value\$.payload.second.value\${}"
+
+        Assertions.assertThrows(RuntimeException::class.java) {
+            Result(json, str.let(::Expression)).result()
+        }.also {
+            Assertions.assertEquals("This '{}' operation in not supported" ,it.message)
+        }
+    }
 }
