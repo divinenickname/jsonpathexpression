@@ -9,7 +9,14 @@ class Eq(
     private val operand2: String,
 ) : Operation(operand1, operand2) {
 
-    override fun result(): Boolean = operand1 == operand2
+    override fun result(): Boolean{
+        return if (operand1.isBoolean() && operand2.isBoolean()) {
+            operand1.toBoolean() == operand2.toBoolean()
+        }
+        else {
+            operand1 == operand2
+        }
+    }
 }
 
 class NotEq(
