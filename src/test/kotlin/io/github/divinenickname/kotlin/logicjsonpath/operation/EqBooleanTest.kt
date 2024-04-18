@@ -3,10 +3,10 @@ package io.github.divinenickname.kotlin.logicjsonpath.operation
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Test
 
-internal class NotEqTest {
+internal class EqBooleanTest {
     @Test
     fun result_isTrue() {
-        val obj = NotEq("1", "2")
+        val obj = Eq("true", "true")
 
         val actual = obj.result()
 
@@ -15,7 +15,7 @@ internal class NotEqTest {
 
     @Test
     fun result_isFalse() {
-        val obj = NotEq("1", "1")
+        val obj = Eq("true", "false")
 
         val actual = obj.result()
 

@@ -2,12 +2,22 @@ package io.github.divinenickname.kotlin.logicjsonpath.operation
 
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Test
+import kotlin.IllegalArgumentException
 
-internal class AndTest {
+internal class LessThanOrEqIntegerTest {
 
     @Test
     fun result_isTrue() {
-        val obj = And("true", "true")
+        val obj = LessThanOrEq("1", "2")
+
+        val actual = obj.result()
+
+        Assertions.assertTrue(actual)
+    }
+
+    @Test
+    fun result_equals_isTrue() {
+        val obj = LessThanOrEq("2", "2")
 
         val actual = obj.result()
 
@@ -16,7 +26,7 @@ internal class AndTest {
 
     @Test
     fun result_isFalse() {
-        val obj = And("true", "false")
+        val obj = LessThanOrEq("2", "1")
 
         val actual = obj.result()
 
@@ -24,15 +34,15 @@ internal class AndTest {
     }
 
     @Test
-    fun result_nonBooleanArg1_isThrow() {
-        val obj = And("1", "false")
+    fun result_notIntegerArg1_throw() {
+        val obj = LessThanOrEq("1a", "2")
 
         Assertions.assertThrows(IllegalArgumentException::class.java) { obj.result() }
     }
 
     @Test
-    fun result_nonBooleanArg2_isThrow() {
-        val obj = And("true", "1")
+    fun result_notIntegerArg2_throw() {
+        val obj = LessThanOrEq("1", "a2")
 
         Assertions.assertThrows(IllegalArgumentException::class.java) { obj.result() }
     }

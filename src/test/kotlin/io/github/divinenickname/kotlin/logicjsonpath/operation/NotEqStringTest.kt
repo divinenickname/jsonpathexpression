@@ -3,10 +3,10 @@ package io.github.divinenickname.kotlin.logicjsonpath.operation
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Test
 
-internal class LessThanTest {
+internal class NotEqStringTest {
     @Test
     fun result_isTrue() {
-        val obj = LessThan("1", "2")
+        val obj = NotEq("abc", "1abc")
 
         val actual = obj.result()
 
@@ -15,7 +15,7 @@ internal class LessThanTest {
 
     @Test
     fun result_isFalse() {
-        val obj = LessThan("2", "1")
+        val obj = NotEq("abc", "abc")
 
         val actual = obj.result()
 

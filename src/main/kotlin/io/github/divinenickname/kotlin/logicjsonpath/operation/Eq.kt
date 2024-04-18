@@ -1,5 +1,9 @@
 package io.github.divinenickname.kotlin.logicjsonpath.operation
 
+import io.github.divinenickname.kotlin.logicjsonpath.isBoolean
+import io.github.divinenickname.kotlin.logicjsonpath.isNumber
+import java.math.BigDecimal
+
 class Eq(
     private val operand1: String,
     private val operand2: String,
@@ -21,7 +25,12 @@ class And(
     private val operand2: String,
 ) : Operation(operand1, operand2) {
 
-    override fun result(): Boolean = operand1.toBoolean() && operand2.toBoolean()
+    override fun result(): Boolean {
+        require(operand1.isBoolean())
+        require(operand2.isBoolean())
+
+        return operand1.toBoolean() && operand2.toBoolean()
+    }
 }
 
 class Or(
@@ -29,7 +38,12 @@ class Or(
     private val operand2: String,
 ) : Operation(operand1, operand2) {
 
-    override fun result(): Boolean = operand1.toBoolean() || operand2.toBoolean()
+    override fun result(): Boolean {
+        require(operand1.isBoolean())
+        require(operand2.isBoolean())
+
+        return operand1.toBoolean() || operand2.toBoolean()
+    }
 }
 
 class LessThan(
@@ -37,7 +51,12 @@ class LessThan(
     private val operand2: String,
 ) : Operation(operand1, operand2) {
 
-    override fun result(): Boolean = operand1.toLong() < operand2.toLong()
+    override fun result(): Boolean {
+        require(operand1.isNumber())
+        require(operand2.isNumber())
+
+        return BigDecimal(operand1) < BigDecimal(operand2)
+    }
 }
 
 class LessThanOrEq(
@@ -45,7 +64,12 @@ class LessThanOrEq(
     private val operand2: String,
 ) : Operation(operand1, operand2) {
 
-    override fun result(): Boolean = operand1.toLong() <= operand2.toLong()
+    override fun result(): Boolean {
+        require(operand1.isNumber())
+        require(operand2.isNumber())
+
+        return BigDecimal(operand1) <= BigDecimal(operand2)
+    }
 }
 
 class GreaterThan(
@@ -53,7 +77,12 @@ class GreaterThan(
     private val operand2: String,
 ) : Operation(operand1, operand2) {
 
-    override fun result(): Boolean = operand1.toLong() > operand2.toLong()
+    override fun result(): Boolean {
+        require(operand1.isNumber())
+        require(operand2.isNumber())
+
+        return BigDecimal(operand1) > BigDecimal(operand2)
+    }
 }
 
 class GreaterThanOrEq(
@@ -61,5 +90,10 @@ class GreaterThanOrEq(
     private val operand2: String,
 ) : Operation(operand1, operand2) {
 
-    override fun result(): Boolean = operand1.toLong() >= operand2.toLong()
+    override fun result(): Boolean {
+        require(operand1.isNumber())
+        require(operand2.isNumber())
+
+        return BigDecimal(operand1) >= BigDecimal(operand2)
+    }
 }

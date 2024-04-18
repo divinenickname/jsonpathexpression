@@ -2,11 +2,22 @@ package io.github.divinenickname.kotlin.logicjsonpath.operation
 
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Test
+import kotlin.IllegalArgumentException
 
-internal class GreaterThanTest {
+internal class LessThanOrEqDoubleTest {
+
     @Test
     fun result_isTrue() {
-        val obj = GreaterThan("2", "1")
+        val obj = LessThanOrEq("1.9991", "2")
+
+        val actual = obj.result()
+
+        Assertions.assertTrue(actual)
+    }
+
+    @Test
+    fun result_equals_isTrue() {
+        val obj = LessThanOrEq("2.00001", "2.00001")
 
         val actual = obj.result()
 
@@ -15,16 +26,7 @@ internal class GreaterThanTest {
 
     @Test
     fun result_isFalse() {
-        val obj = GreaterThan("1", "2")
-
-        val actual = obj.result()
-
-        Assertions.assertFalse(actual)
-    }
-
-    @Test
-    fun result_equals_isFalse() {
-        val obj = GreaterThan("2", "2")
+        val obj = LessThanOrEq("2.00002", "2.00001")
 
         val actual = obj.result()
 
