@@ -5,15 +5,15 @@ import org.junit.jupiter.api.Test
 
 internal class ExpressionTest {
 
-    private val exp = "\$.selected.srcProduct.currencyCode\$.selected.dstProduct.currencyCode\$="
+    private val exp = "\$.payload.first.value\$.payload.second.value\$="
 
     @Test
     fun tokensTest() {
         val obj = Expression(exp)
 
         val expected = ArrayDeque<Token>().apply {
-            addLast(Token("\$.selected.srcProduct.currencyCode"))
-            addLast(Token("\$.selected.dstProduct.currencyCode"))
+            addLast(Token("\$.payload.first.value"))
+            addLast(Token("\$.payload.second.value"))
             addLast(Token("="))
         }
         val actual = obj.tokens()
