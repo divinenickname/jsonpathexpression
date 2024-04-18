@@ -1,0 +1,26 @@
+{
+  "items": [
+    {
+      "id": 1,
+      "currencyCode": "RUB"
+    },
+    {
+      "id": 2,
+      "currencyCode": "EUR"
+    },
+    {
+      "id": 3,
+      "currencyCode": "RUB"
+    }
+  ],
+  "selected": {
+    "srcProduct": {
+      "id": 1,
+      "currencyCode": "RUB"
+    },
+    "dstProduct": {
+      "id": 3,
+      "currencyCode": "RUB"
+    }
+  }
+}
