@@ -18,7 +18,7 @@ class Expression(private val exp: String) {
 
         exp.split("\$")
             .forEach {
-                val element = it.takeIf { it in operators } ?: it.let { "\$${it}" }
+                val element = it.takeIf { it in operators || it.isEmpty() || it[0] != '.' } ?: it.let { "\$${it}" }
                 Token(element).let(deque::addLast)
             }
 
