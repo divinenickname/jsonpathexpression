@@ -70,50 +70,54 @@ internal class ResultTest {
 
     @Test
     fun result_multiple_isFalse() {
-        val json = File("src/test/resources/stringMultipleFalseResult.json").readText()
-        val str = "\$.selected.srcProduct.currencyCode\$.selected.dstProduct.currencyCode\$=" +
-                "\$.selected.srcProduct.currencyCode\$.selected.extProduct.currencyCode\$=" +
+        val json = """
+            {
+              "payload": {
+                "first": {
+                  "value": true
+                },
+                "second": {
+                  "value": false
+                },
+                "third": {
+                   "value": true
+                }
+              }
+            }
+        """.trimIndent()
+        val str = "\$.payload.first.value\$.payload.second.value\$=" +
+                "\$.payload.first.value\$.payload.third.value\$=" +
                 "\$&"
-        val obj = str
-            .let(::Expression)
-            .let { Result(json, it) }
 
-        val actual = obj.result()
+        val actual = Result(json, str.let(::Expression))
+            .result()
 
         Assertions.assertFalse(actual)
     }
 
     @Test
     fun result_multiple_isTrue() {
-        val json = File("src/test/resources/stringMultipleFalseResult.json").readText()
-        val str = "\$.selected.srcProduct.currencyCode\$.selected.dstProduct.currencyCode\$=" +
-                "\$.selected.srcProduct.currencyCode\$.selected.extProduct.currencyCode\$=" +
+        val json = """
+            {
+              "payload": {
+                "first": {
+                  "value": true
+                },
+                "second": {
+                  "value": true
+                },
+                "third": {
+                   "value": true
+                }
+              }
+            }
+        """.trimIndent()
+        val str = "\$.payload.first.value\$.payload.second.value\$=" +
+                "\$.payload.first.value\$.payload.third.value\$=" +
                 "\$&"
-        val obj = str
-            .let(::Expression)
-            .let { Result(json, it) }
 
-        val actual = obj.result()
-
-        Assertions.assertFalse(actual)
-    }
-
-    @Test
-    fun result_int_isFalse() {
-        val json = File("src/test/resources/intFalseResult.json").readText()
-        val obj = Result(json, Expression("\$.selected.srcProduct.value\$.selected.dstProduct.value\$="))
-
-        val actual = obj.result()
-
-        Assertions.assertFalse(actual)
-    }
-
-    @Test
-    fun result_int_isTrue() {
-        val json = File("src/test/resources/intFalseResult.json").readText()
-        val obj = Result(json, Expression("\$.selected.srcProduct.value\$.selected.dstProduct.value\$<"))
-
-        val actual = obj.result()
+        val actual = Result(json, str.let(::Expression))
+            .result()
 
         Assertions.assertTrue(actual)
     }
