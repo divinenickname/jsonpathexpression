@@ -12,13 +12,13 @@ class Expression(private val exp: String) {
      */
     fun tokens(): ArrayDeque<Token> {
         require(exp.length > 1)
-        require(exp.first() == '$')
+        require(exp.first() == '#')
 
         val deque = ArrayDeque<Token>()
 
-        exp.split("\$")
+        exp.split("#")
             .forEach {
-                val element = it.takeIf { it in operators || it.isEmpty() || it[0] != '.' } ?: it.let { "\$${it}" }
+                val element = it.takeIf { it in operators || it.isEmpty() || it[0] != '.' } ?: it.let { "${it}" }
                 Token(element).let(deque::addLast)
             }
 
