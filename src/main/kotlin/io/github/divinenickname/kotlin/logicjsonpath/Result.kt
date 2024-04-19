@@ -26,7 +26,7 @@ class Result(
             if (it.isJsonPath()) {
                 JsonPath.read<Any>(json, deque.removeFirst().toString()).toString().let(acc::addLast)
             }
-            else if (it.isOperator() || acc.size == 2) {
+            else if (it.isOperator()) {
                 val operand2 = acc.removeLast()
                 val operand1 = acc.removeLast()
                 deque.removeFirst()
