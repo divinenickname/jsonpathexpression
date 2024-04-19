@@ -12,7 +12,7 @@ plugins {
 
 description = "Library for mathematical and logical operations on JSON paths."
 version = System.getenv("GIT_TAG") ?: "1.0.0-SNAPSHOT"
-group = "io.github.divinenickname.kotlin.logic-json-path"
+group = "org.ilinykh.kotlin.logic-json-path"
 java.targetCompatibility = JavaVersion.VERSION_17
 java.sourceCompatibility = JavaVersion.VERSION_17
 
