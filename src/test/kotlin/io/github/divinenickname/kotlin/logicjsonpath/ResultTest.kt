@@ -125,10 +125,13 @@ internal class ResultTest {
     }
 
     @ParameterizedTest
-    @ValueSource(strings = [
-        "#\$.sum(\$.store.book[*].price)#100#>",
-        "#100#\$.sum(\$.store.book[*].price)#<"
-    ])
+    @ValueSource(
+        strings = [
+            "#\$.sum(\$.store.book[*].price)#100#>",
+            "#100#\$.sum(\$.store.book[*].price)#<",
+            "#$.sum($.store.book[*].price)#100#>"
+        ]
+    )
     fun result_sumFun_success(expString: String) {
         val json = """
             {
