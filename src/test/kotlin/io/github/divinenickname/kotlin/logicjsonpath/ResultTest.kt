@@ -19,7 +19,7 @@ internal class ResultTest {
               }
             }
         """.trimIndent()
-        val obj = Result(json, Expression("\$.payload.first.value\$.payload.second.value\$="))
+        val obj = Result(json, Expression("#\$.payload.first.value#\$.payload.second.value#="))
 
         val actual = obj.result()
 
@@ -40,7 +40,7 @@ internal class ResultTest {
               }
             }
         """.trimIndent()
-        val obj = Result(json, Expression("\$.payload.first.value\$.payload.second.value\$="))
+        val obj = Result(json, Expression("#\$.payload.first.value#\$.payload.second.value#="))
 
         val actual = obj.result()
 
@@ -61,7 +61,7 @@ internal class ResultTest {
               }
             }
         """.trimIndent()
-        val obj = Result(json, Expression("\$.payload.first.value\$.payload.second.value\$="))
+        val obj = Result(json, Expression("#\$.payload.first.value#\$.payload.second.value#="))
 
         val actual = obj.result()
 
@@ -85,9 +85,9 @@ internal class ResultTest {
               }
             }
         """.trimIndent()
-        val str = "\$.payload.first.value\$.payload.second.value\$=" +
-                "\$.payload.first.value\$.payload.third.value\$=" +
-                "\$&"
+        val str = "#\$.payload.first.value#\$.payload.second.value#=" +
+                "#\$.payload.first.value#\$.payload.third.value#=" +
+                "#&"
 
         val actual = Result(json, str.let(::Expression))
             .result()
@@ -112,9 +112,9 @@ internal class ResultTest {
               }
             }
         """.trimIndent()
-        val str = "\$.payload.first.value\$.payload.second.value\$=" +
-                "\$.payload.first.value\$.payload.third.value\$=" +
-                "\$&"
+        val str = "#\$.payload.first.value#\$.payload.second.value#=" +
+                "#\$.payload.first.value#\$.payload.third.value#=" +
+                "#&"
 
         val actual = Result(json, str.let(::Expression))
             .result()
@@ -136,12 +136,59 @@ internal class ResultTest {
               }
             }
         """.trimIndent()
-        val str = "\$.payload.first.value\$.payload.second.value\${}"
+        val str = "#\$.payload.first.value#\$.payload.second.value#{}"
 
         Assertions.assertThrows(RuntimeException::class.java) {
             Result(json, str.let(::Expression)).result()
         }.also {
             Assertions.assertEquals("This '{}' operation in not supported" ,it.message)
         }
+    }
+
+    @Test
+    fun result_sum_success() {
+        val json = """
+            {
+                "store": {
+                    "book": [
+                        {
+                            "category": "reference",
+                            "author": "Nigel Rees",
+                            "title": "Sayings of the Century",
+                            "price": 8.95
+                        },
+                        {
+                            "category": "fiction",
+                            "author": "Evelyn Waugh",
+                            "title": "Sword of Honour",
+                            "price": 12.99
+                        },
+                        {
+                            "category": "fiction",
+                            "author": "Herman Melville",
+                            "title": "Moby Dick",
+                            "isbn": "0-553-21311-3",
+                            "price": 8.99
+                        },
+                        {
+                            "category": "fiction",
+                            "author": "J. R. R. Tolkien",
+                            "title": "The Lord of the Rings",
+                            "isbn": "0-395-19395-8",
+                            "price": 22.99
+                        }
+                    ],
+                    "bicycle": {
+                        "color": "red",
+                        "price": 19.95
+                    }
+                },
+                "expensive": 10
+            }
+        """.trimIndent()
+
+        val actual = Result(json, Expression("#\$.sum(\$.store.book[*].price)#100#>")).result()
+
+        Assertions.assertFalse(actual)
     }
 }

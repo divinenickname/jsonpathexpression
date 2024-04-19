@@ -11,5 +11,7 @@ data class Token(private val str: String) {
      */
     fun isJsonPath() = str.length > 1 && str[1] == '.'
 
+    fun isOperator() = str in Operators.operators
+
     override fun toString() = str
 }
