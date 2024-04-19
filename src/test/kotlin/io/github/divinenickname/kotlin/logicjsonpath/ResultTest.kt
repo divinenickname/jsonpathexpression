@@ -143,15 +143,18 @@ internal class ResultTest {
         Assertions.assertThrows(RuntimeException::class.java) {
             Result(json, str.let(::Expression)).result()
         }.also {
-            Assertions.assertEquals("This '{}' operation in not supported" ,it.message)
+            Assertions.assertEquals("This '{}' operation in not supported", it.message)
         }
     }
 
     @ParameterizedTest
-    @ValueSource(strings = [
-        "#\$.sum(\$.store.book[*].price)#100#>",
-        "#100#\$.sum(\$.store.book[*].price)#<"
-    ])
+    @ValueSource(
+        strings = [
+            "#\$.sum(\$.store.book[*].price)#100#>",
+            "#100#\$.sum(\$.store.book[*].price)#<",
+            "#$.sum($.store.book[*].price)#100#>"
+        ]
+    )
     fun result_sumFun_success(expString: String) {
         val json = """
             {
