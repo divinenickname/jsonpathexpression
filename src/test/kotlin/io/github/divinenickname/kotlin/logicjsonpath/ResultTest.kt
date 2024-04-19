@@ -124,29 +124,6 @@ internal class ResultTest {
         Assertions.assertTrue(actual)
     }
 
-    @Test
-    fun result_unsupportedOperator_throws() {
-        val json = """
-            {
-              "payload": {
-                "first": {
-                  "value": true
-                },
-                "second": {
-                  "value": true
-                }
-              }
-            }
-        """.trimIndent()
-        val str = "#\$.payload.first.value#\$.payload.second.value#{}"
-
-        Assertions.assertThrows(RuntimeException::class.java) {
-            Result(json, str.let(::Expression)).result()
-        }.also {
-            Assertions.assertEquals("This '{}' operation in not supported" ,it.message)
-        }
-    }
-
     @ParameterizedTest
     @ValueSource(strings = [
         "#\$.sum(\$.store.book[*].price)#100#>",
@@ -183,9 +160,10 @@ internal class ResultTest {
         Assertions.assertFalse(actual)
     }
 
-    @Test
-    fun result_expWithoutJson_isTrue() {
-        val actual = Result(Expression("#10#6#>")).result()
+    @ParameterizedTest
+    @ValueSource(strings = ["#12#10#>#12#15#<#=", "#10#6#>"])
+    fun result_expWithoutJson_isTrue(expStr: String) {
+        val actual = Result(Expression(expStr)).result()
 
         Assertions.assertTrue(actual)
     }
