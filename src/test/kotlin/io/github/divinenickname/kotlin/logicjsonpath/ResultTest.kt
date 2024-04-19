@@ -2,9 +2,11 @@ package io.github.divinenickname.kotlin.logicjsonpath
 
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Test
-import java.io.File
+import org.junit.jupiter.params.ParameterizedTest
+import org.junit.jupiter.params.provider.ValueSource
 
 internal class ResultTest {
+
     @Test
     fun result_boolean_isTrue() {
         val json = """
@@ -145,50 +147,46 @@ internal class ResultTest {
         }
     }
 
-    @Test
-    fun result_sum_success() {
+    @ParameterizedTest
+    @ValueSource(strings = [
+        "#\$.sum(\$.store.book[*].price)#100#>",
+        "#100#\$.sum(\$.store.book[*].price)#<"
+    ])
+    fun result_sumFun_success(expString: String) {
         val json = """
             {
                 "store": {
                     "book": [
                         {
-                            "category": "reference",
-                            "author": "Nigel Rees",
                             "title": "Sayings of the Century",
                             "price": 8.95
                         },
                         {
-                            "category": "fiction",
-                            "author": "Evelyn Waugh",
                             "title": "Sword of Honour",
                             "price": 12.99
                         },
                         {
-                            "category": "fiction",
-                            "author": "Herman Melville",
                             "title": "Moby Dick",
-                            "isbn": "0-553-21311-3",
                             "price": 8.99
                         },
                         {
-                            "category": "fiction",
-                            "author": "J. R. R. Tolkien",
-                            "title": "The Lord of the Rings",
-                            "isbn": "0-395-19395-8",
+                            "title": "Cipollino",
                             "price": 22.99
                         }
-                    ],
-                    "bicycle": {
-                        "color": "red",
-                        "price": 19.95
-                    }
-                },
-                "expensive": 10
+                    ]
+                }
             }
         """.trimIndent()
 
-        val actual = Result(json, Expression("#\$.sum(\$.store.book[*].price)#100#>")).result()
+        val actual = Result(json, Expression(expString)).result()
 
         Assertions.assertFalse(actual)
+    }
+
+    @Test
+    fun result_expWithoutJson_isTrue() {
+        val actual = Result(Expression("#10#6#>")).result()
+
+        Assertions.assertTrue(actual)
     }
 }

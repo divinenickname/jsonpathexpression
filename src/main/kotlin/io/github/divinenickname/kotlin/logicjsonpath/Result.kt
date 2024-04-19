@@ -13,6 +13,8 @@ class Result(
     private val exp: Expression
 ) {
 
+    constructor(exp: Expression): this(json = "", exp = exp)
+
     /**
      * @return logical result of expression
      */
