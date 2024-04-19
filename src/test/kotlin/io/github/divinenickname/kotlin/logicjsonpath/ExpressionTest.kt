@@ -9,7 +9,7 @@ internal class ExpressionTest {
 
     @Test
     fun tokens_success() {
-        val obj = Expression("\$.payload.first.value\$.payload.second.value\$=")
+        val obj = Expression("#\$.payload.first.value#\$.payload.second.value#=")
 
         val expected = ArrayDeque<Token>().apply {
             addLast(Token("\$.payload.first.value"))

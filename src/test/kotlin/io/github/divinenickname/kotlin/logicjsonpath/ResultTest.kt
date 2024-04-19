@@ -2,9 +2,11 @@ package io.github.divinenickname.kotlin.logicjsonpath
 
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Test
-import java.io.File
+import org.junit.jupiter.params.ParameterizedTest
+import org.junit.jupiter.params.provider.ValueSource
 
 internal class ResultTest {
+
     @Test
     fun result_boolean_isTrue() {
         val json = """
@@ -19,7 +21,7 @@ internal class ResultTest {
               }
             }
         """.trimIndent()
-        val obj = Result(json, Expression("\$.payload.first.value\$.payload.second.value\$="))
+        val obj = Result(json, Expression("#\$.payload.first.value#\$.payload.second.value#="))
 
         val actual = obj.result()
 
@@ -40,7 +42,7 @@ internal class ResultTest {
               }
             }
         """.trimIndent()
-        val obj = Result(json, Expression("\$.payload.first.value\$.payload.second.value\$="))
+        val obj = Result(json, Expression("#\$.payload.first.value#\$.payload.second.value#="))
 
         val actual = obj.result()
 
@@ -61,7 +63,7 @@ internal class ResultTest {
               }
             }
         """.trimIndent()
-        val obj = Result(json, Expression("\$.payload.first.value\$.payload.second.value\$="))
+        val obj = Result(json, Expression("#\$.payload.first.value#\$.payload.second.value#="))
 
         val actual = obj.result()
 
@@ -85,9 +87,9 @@ internal class ResultTest {
               }
             }
         """.trimIndent()
-        val str = "\$.payload.first.value\$.payload.second.value\$=" +
-                "\$.payload.first.value\$.payload.third.value\$=" +
-                "\$&"
+        val str = "#\$.payload.first.value#\$.payload.second.value#=" +
+                "#\$.payload.first.value#\$.payload.third.value#=" +
+                "#&"
 
         val actual = Result(json, str.let(::Expression))
             .result()
@@ -112,9 +114,9 @@ internal class ResultTest {
               }
             }
         """.trimIndent()
-        val str = "\$.payload.first.value\$.payload.second.value\$=" +
-                "\$.payload.first.value\$.payload.third.value\$=" +
-                "\$&"
+        val str = "#\$.payload.first.value#\$.payload.second.value#=" +
+                "#\$.payload.first.value#\$.payload.third.value#=" +
+                "#&"
 
         val actual = Result(json, str.let(::Expression))
             .result()
@@ -136,12 +138,55 @@ internal class ResultTest {
               }
             }
         """.trimIndent()
-        val str = "\$.payload.first.value\$.payload.second.value\${}"
+        val str = "#\$.payload.first.value#\$.payload.second.value#{}"
 
         Assertions.assertThrows(RuntimeException::class.java) {
             Result(json, str.let(::Expression)).result()
         }.also {
             Assertions.assertEquals("This '{}' operation in not supported" ,it.message)
         }
+    }
+
+    @ParameterizedTest
+    @ValueSource(strings = [
+        "#\$.sum(\$.store.book[*].price)#100#>",
+        "#100#\$.sum(\$.store.book[*].price)#<"
+    ])
+    fun result_sumFun_success(expString: String) {
+        val json = """
+            {
+                "store": {
+                    "book": [
+                        {
+                            "title": "Sayings of the Century",
+                            "price": 8.95
+                        },
+                        {
+                            "title": "Sword of Honour",
+                            "price": 12.99
+                        },
+                        {
+                            "title": "Moby Dick",
+                            "price": 8.99
+                        },
+                        {
+                            "title": "Cipollino",
+                            "price": 22.99
+                        }
+                    ]
+                }
+            }
+        """.trimIndent()
+
+        val actual = Result(json, Expression(expString)).result()
+
+        Assertions.assertFalse(actual)
+    }
+
+    @Test
+    fun result_expWithoutJson_isTrue() {
+        val actual = Result(Expression("#10#6#>")).result()
+
+        Assertions.assertTrue(actual)
     }
 }

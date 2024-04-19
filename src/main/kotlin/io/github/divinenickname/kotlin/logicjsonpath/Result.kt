@@ -13,6 +13,8 @@ class Result(
     private val exp: Expression
 ) {
 
+    constructor(exp: Expression): this(json = "", exp = exp)
+
     /**
      * @return logical result of expression
      */
@@ -23,7 +25,8 @@ class Result(
         exp.tokens().forEach {
             if (it.isJsonPath()) {
                 JsonPath.read<Any>(json, deque.removeFirst().toString()).toString().let(acc::addLast)
-            } else {
+            }
+            else if (it.isOperator() || acc.size == 2) {
                 val operand2 = acc.removeLast()
                 val operand1 = acc.removeLast()
                 deque.removeFirst()
@@ -32,6 +35,9 @@ class Result(
                     ?.let { constructor -> constructor(operand1, operand2) }
                     ?.result()?.toString()?.apply { acc.addLast(this) }
                     ?: throw RuntimeException("This '$it' operation in not supported")
+            }
+            else {
+                acc.addLast(deque.removeFirst().toString())
             }
         }
 
