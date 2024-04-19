@@ -1,10 +1,34 @@
 [![GitHub license](https://img.shields.io/badge/license-Apache%20License%202.0-blue.svg?style=flat)](https://www.apache.org/licenses/LICENSE-2.0)
 ![main branch build](https://github.com/divinenickname/utgen-kotlin-core/actions/workflows/mainbranch-build.yml/badge.svg)
+![Maven metadata URL](https://img.shields.io/maven-metadata/v?metadataUrl=https://repo1.maven.org/maven2/org/ilinykh/kotlin/logic-json-path/logic-json-path/maven-metadata.xml&style=flat&label=sonatype-central&color=green)
 ![Coverage](.github/badges/jacoco.svg)
 
 # Logic JsonPath
 This library extends [JsonPath](https://github.com/json-path/JsonPath) for direct logical operations on JSON data.
 It allows complex querying and filtering within JSON structures using an extended syntax with logical operators.
+
+## Getting Started
+Library is available in the [Central Maven Repository](https://central.sonatype.com/artifact/org.ilinykh.kotlin.logic-json-path/logic-json-path).
+You can find the latest version under the "sonatype-central" badge at the top of the README.
+
+### Gradle kotlin dsl
+``` kotlin
+implementation("org.ilinykh.kotlin.logic-json-path:logic-json-path:1.0.0")
+```
+
+### Gradle
+```groovy
+implementation 'org.ilinykh.kotlin.logic-json-path:logic-json-path:1.0.0'
+```
+
+### Maven
+```xml
+<dependency>
+    <groupId>org.ilinykh.kotlin.logic-json-path</groupId>
+    <artifactId>logic-json-path</artifactId>
+    <version>1.0.0</version>
+</dependency>
+```
 
 ## Operators
 | Operator | Description                                                         | Constraints                                                              |
