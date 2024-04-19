@@ -6,12 +6,16 @@ package io.github.divinenickname.kotlin.logicjsonpath
  */
 data class Token(private val str: String) {
 
+    companion object {
+        private val operators = setOf("=", "!=", "<", "<=", ">=", ">", "&", "|")
+    }
+
     /**
      * @return true if given string is jsonPath
      */
-    fun isJsonPath() = str.length > 1 && str[1] == '.'
+    fun isJsonPath(): Boolean = str.length > 1 && str[1] == '.'
 
-    fun isOperator() = str in Operators.operators
+    fun isOperator():Boolean = str in operators
 
-    override fun toString() = str
+    override fun toString():String = str
 }
