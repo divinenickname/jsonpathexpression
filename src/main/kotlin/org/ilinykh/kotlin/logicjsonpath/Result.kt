@@ -10,10 +10,10 @@ import org.ilinykh.kotlin.logicjsonpath.operation.Operations
  */
 class Result(
     private val json: String,
-    private val exp: org.ilinykh.kotlin.logicjsonpath.Expression
+    private val exp: Expression
 ) {
 
-    constructor(exp: org.ilinykh.kotlin.logicjsonpath.Expression): this(json = "", exp = exp)
+    constructor(exp: Expression): this(json = "", exp = exp)
 
     /**
      * @return logical result of expression

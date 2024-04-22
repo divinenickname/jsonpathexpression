@@ -9,7 +9,7 @@ internal class ExpressionTest {
 
     @Test
     fun tokens_success() {
-        val obj = org.ilinykh.kotlin.logicjsonpath.Expression("#\$.payload.first.value#\$.payload.second.value#=")
+        val obj = Expression("#\$.payload.first.value#\$.payload.second.value#=")
 
         val expected = ArrayDeque<Token>().apply {
             addLast(Token("\$.payload.first.value"))
@@ -24,7 +24,6 @@ internal class ExpressionTest {
     @ParameterizedTest
     @ValueSource(strings = ["missed'$' symbol at start", "a"])
     fun tokens_invalidExp(exp: String) {
-        Assertions.assertThrows(IllegalArgumentException::class.java) { org.ilinykh.kotlin.logicjsonpath.Expression(exp)
-            .tokens() }
+        Assertions.assertThrows(IllegalArgumentException::class.java) { Expression(exp).tokens() }
     }
 }

@@ -22,7 +22,7 @@ internal class ResultTest {
             }
         """.trimIndent()
         val obj = Result(json,
-            org.ilinykh.kotlin.logicjsonpath.Expression("#\$.payload.first.value#\$.payload.second.value#=")
+            Expression("#\$.payload.first.value#\$.payload.second.value#=")
         )
 
         val actual = obj.result()
@@ -164,7 +164,7 @@ internal class ResultTest {
             }
         """.trimIndent()
 
-        val actual = Result(json, org.ilinykh.kotlin.logicjsonpath.Expression(expString)).result()
+        val actual = Result(json, Expression(expString)).result()
 
         Assertions.assertFalse(actual)
     }
@@ -172,7 +172,7 @@ internal class ResultTest {
     @ParameterizedTest
     @ValueSource(strings = ["#12#10#>#12#15#<#=", "#10#6#>"])
     fun result_expWithoutJson_isTrue(expStr: String) {
-        val actual = Result(org.ilinykh.kotlin.logicjsonpath.Expression(expStr)).result()
+        val actual = Result(Expression(expStr)).result()
 
         Assertions.assertTrue(actual)
     }

@@ -8,11 +8,11 @@ class Expression(private val exp: String) {
     /**
      * Parse tokens from string
      */
-    fun tokens(): ArrayDeque<org.ilinykh.kotlin.logicjsonpath.Token> {
+    fun tokens(): ArrayDeque<Token> {
         require(exp.length > 1)
         require(exp.first() == '#')
 
-        val deque = ArrayDeque<org.ilinykh.kotlin.logicjsonpath.Token>()
+        val deque = ArrayDeque<Token>()
 
         exp.split("#")
             .forEach {
