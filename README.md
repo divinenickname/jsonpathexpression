@@ -11,23 +11,31 @@ It allows complex querying and filtering within JSON structures using an extende
 Library is available in the [Central Maven Repository](https://central.sonatype.com/artifact/org.ilinykh.kotlin.logic-json-path/logic-json-path).
 You can find the latest version under the "sonatype-central" badge at the top of the README.
 
-### Gradle kotlin dsl
+### Add dependency
+#### Gradle kotlin dsl
 ``` kotlin
 implementation("org.ilinykh.kotlin.logic-json-path:logic-json-path:1.0.0")
 ```
 
-### Gradle
+#### Gradle
 ```groovy
 implementation 'org.ilinykh.kotlin.logic-json-path:logic-json-path:1.0.0'
 ```
 
-### Maven
+#### Maven
 ```xml
 <dependency>
     <groupId>org.ilinykh.kotlin.logic-json-path</groupId>
     <artifactId>logic-json-path</artifactId>
     <version>1.0.0</version>
 </dependency>
+```
+
+### Example
+```kotlin
+val json = """some JSON here""".trimIndent()
+val exp = Expression("#\$.payload.first.value#\$.payload.second.value#=")
+Result(json, exp).result()
 ```
 
 ## Operators
