@@ -1,5 +1,7 @@
 package org.ilinykh.kotlin.logicjsonpath
 
+import org.ilinykh.kotlin.logicjsonpath.operation.Operations
+
 /**
  * Wrapper for string parsed token
  * @param str string parsed token
@@ -7,7 +9,7 @@ package org.ilinykh.kotlin.logicjsonpath
 data class Token(private val str: String) {
 
     companion object {
-        private val operators = setOf("=", "!=", "<", "<=", ">=", ">", "&", "|")
+        private val operators = Operations.ops.keys
     }
 
     /**

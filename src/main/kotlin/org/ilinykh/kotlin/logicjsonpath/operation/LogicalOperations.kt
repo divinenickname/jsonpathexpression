@@ -7,7 +7,7 @@ import java.math.BigDecimal
 class Eq(
     private val operand1: String,
     private val operand2: String,
-) : Operation(operand1, operand2) {
+) : Operation<Boolean>(operand1, operand2) {
 
     override fun result(): Boolean{
         return if (operand1.isBoolean() && operand2.isBoolean()) {
@@ -22,7 +22,7 @@ class Eq(
 class NotEq(
     private val operand1: String,
     private val operand2: String,
-) : Operation(operand1, operand2) {
+) : Operation<Boolean>(operand1, operand2) {
 
     override fun result(): Boolean = operand1 != operand2
 }
@@ -30,7 +30,7 @@ class NotEq(
 class And(
     private val operand1: String,
     private val operand2: String,
-) : Operation(operand1, operand2) {
+) : Operation<Boolean>(operand1, operand2) {
 
     override fun result(): Boolean {
         require(operand1.isBoolean())
@@ -43,7 +43,7 @@ class And(
 class Or(
     private val operand1: String,
     private val operand2: String,
-) : Operation(operand1, operand2) {
+) : Operation<Boolean>(operand1, operand2) {
 
     override fun result(): Boolean {
         require(operand1.isBoolean())
@@ -56,7 +56,7 @@ class Or(
 class LessThan(
     private val operand1: String,
     private val operand2: String,
-) : Operation(operand1, operand2) {
+) : Operation<Boolean>(operand1, operand2) {
 
     override fun result(): Boolean {
         require(operand1.isNumber())
@@ -69,7 +69,7 @@ class LessThan(
 class LessThanOrEq(
     private val operand1: String,
     private val operand2: String,
-) : Operation(operand1, operand2) {
+) : Operation<Boolean>(operand1, operand2) {
 
     override fun result(): Boolean {
         require(operand1.isNumber())
@@ -82,7 +82,7 @@ class LessThanOrEq(
 class GreaterThan(
     private val operand1: String,
     private val operand2: String,
-) : Operation(operand1, operand2) {
+) : Operation<Boolean>(operand1, operand2) {
 
     override fun result(): Boolean {
         require(operand1.isNumber())
@@ -95,7 +95,7 @@ class GreaterThan(
 class GreaterThanOrEq(
     private val operand1: String,
     private val operand2: String,
-) : Operation(operand1, operand2) {
+) : Operation<Boolean>(operand1, operand2) {
 
     override fun result(): Boolean {
         require(operand1.isNumber())
