@@ -24,4 +24,18 @@ internal class MultiplyTest {
 
         Assertions.assertEquals(expected, actual)
     }
+
+    @Test
+    fun op1_notNumber_throw() {
+        val obj = Multiply("8.95a", "1.246")
+
+        Assertions.assertThrows(IllegalArgumentException::class.java) { obj.result() }
+    }
+
+    @Test
+    fun op2_notNumber_throw() {
+        val obj = Multiply("8.95", "1.246a")
+
+        Assertions.assertThrows(IllegalArgumentException::class.java) { obj.result() }
+    }
 }
