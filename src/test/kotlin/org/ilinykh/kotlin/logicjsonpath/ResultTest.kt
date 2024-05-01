@@ -21,7 +21,8 @@ internal class ResultTest {
               }
             }
         """.trimIndent()
-        val obj = Result(json,
+        val obj = Result(
+            json,
             Expression("#\$.payload.first.value#\$.payload.second.value#=")
         )
 
@@ -44,7 +45,8 @@ internal class ResultTest {
               }
             }
         """.trimIndent()
-        val obj = Result(json,
+        val obj = Result(
+            json,
             org.ilinykh.kotlin.logicjsonpath.Expression("#\$.payload.first.value#\$.payload.second.value#=")
         )
 
@@ -67,7 +69,8 @@ internal class ResultTest {
               }
             }
         """.trimIndent()
-        val obj = Result(json,
+        val obj = Result(
+            json,
             org.ilinykh.kotlin.logicjsonpath.Expression("#\$.payload.first.value#\$.payload.second.value#=")
         )
 
@@ -173,6 +176,25 @@ internal class ResultTest {
     @ValueSource(strings = ["#12#10#>#12#15#<#=", "#10#6#>"])
     fun result_expWithoutJson_isTrue(expStr: String) {
         val actual = Result(Expression(expStr)).result()
+
+        Assertions.assertTrue(actual)
+    }
+
+    @ParameterizedTest
+    @ValueSource(
+        strings = [
+            "#$.first#$.second#+#100#<"
+        ]
+    )
+    fun arithmeticOps_isTrue(expStr: String) {
+        val json = """
+            {
+              "first": 8.95,
+              "second": 1.33
+            }
+        """.trimIndent()
+
+        val actual = Result(json, Expression(expStr)).result()
 
         Assertions.assertTrue(actual)
     }

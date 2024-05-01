@@ -32,6 +32,7 @@ implementation 'org.ilinykh.kotlin.logic-json-path:logic-json-path:1.0.0'
 ```
 
 ### Example
+
 ```kotlin
 val json = """some JSON here""".trimIndent()
 val exp = Expression("#\$.payload.first.value#\$.payload.second.value#=")
@@ -43,14 +44,16 @@ Result(json, exp).result()
 |----------|---------------------------------------------------------------------|--------------------------------------------------------------------------|
 | =        | *Equals*. <br/>Left is equal to right                               | Boolean types works case insensitive, otherwise works as string compare. |
 | !=       | *Not Equals*. <br/>Left is NOT equal to right.                      | Boolean types works case insensitive, otherwise works as string compare. |
-| &        | *AND*                                                               | Works only with boolean.                                                 |
-| \|       | *OR*                                                                | Works only with boolean.                                                 |
-| <        | *Less Than* <br/>Left element is less to right.                     | Works only with numbers.                                                 |
-| <=       | *Less Or Equal*. <br/>Left element is less or equal to right.       | Works only with numbers.                                                 |
-| \>       | *Greater Than*. <br/>Left element is greater to right.              | Works only with numbers.                                                 |
-| \>=      | *Greater Or Equal*. <br/>Left element is greater or equal to right. | Works only with numbers.                                                 |
-
-⚠️ Mathematics operations like `+`, `-`, `/`, `*` are not supported yet.
+| &        | *AND*                                                               | Numbers only.                                                            |
+| \|       | *OR*                                                                | Numbers only.                                                            |
+| <        | *Less Than* <br/>Left element is less to right.                     | Numbers only.                                                            |
+| <=       | *Less Or Equal*. <br/>Left element is less or equal to right.       | Numbers only.                                                            |
+| \>       | *Greater Than*. <br/>Left element is greater to right.              | Numbers only.                                                            |
+| \>=      | *Greater Or Equal*. <br/>Left element is greater or equal to right. | Numbers only.                                                            |
+| +        | *Plus*. Sum of left and right elements.                             | Numbers only. Returns the most scale of operands.                        |
+| -        | *Minus*. Left element minus right element.                          | Numbers only. Returns the most scale of operands.                        |
+| *        | *Multiply*. Multiplication of left and right elements.              | Numbers only. Returns the most scale of operands. RoundingMode.HALF_UP.  |
+| /        | *Divide*. Division left element to right element.                   | Numbers only. Returns the most scale of operands. RoundingMode.HALF_UP.  |
 
 ## Expression language
 Expressions must be declared in reverse polish notation ([RPN](https://en.wikipedia.org/wiki/Reverse_Polish_notation)).

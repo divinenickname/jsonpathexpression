@@ -13,5 +13,9 @@ object Operations {
         "<=" to ::LessThanOrEq,
         ">" to ::GreaterThan,
         ">=" to ::GreaterThanOrEq,
+        "+" to ::Plus,
+        "-" to ::Minus,
+        "*" to ::Multiply,
+        "/" to ::Divide,
     )
 }
